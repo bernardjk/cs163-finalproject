@@ -1,15 +1,56 @@
 # Abstract
-The work is trying to replicate a desnowing method proposed by a paper. The proposed method uses modular neural networks to handle snow in different spatial frequencies, trajectories, and translucency.
+This is the final report for CS163 
 
 ## 1. Introduction
-This work replicates a desnowing method proposed by the paper: *DesnowNet: Context-Aware Deep Network for Snow Removal*. The goal is to achieve this with limited computing resources and a downscaled dataset. The purpose of the neural network is to remove the snow (noise) in snowy images and recover a snow-free image. 
 
-The rest of this paper is organized as follows:
-- Section II provides the details of the proposed DesnowNet architecture.
-- Section III elaborates on the dataset used for training.
-- Section IV presents the experimental results.
-- Section V concludes the work.
+The goal of this project is to explore the robustness and practicality of the Oclusion removeal architecture in a constrained environment with limited computing resources and a downscaled dataset. For this project, we decided to aim specifically at the architecture presented by the paper "DesnowNet: Context-Aware Deep Network for Snow Removal". The goal is to achieve this with limited computing resources and a downscaled dataset. The purpose of the neural network is to remove the snow (noise) in snowy images and recover a snow-free image"The neural network is designed to remove snow (viewed as noise) from images and recover clear, snow-free visuals. While the original paper demonstrated strong results, we adapted the method to a scaled-down Snow100K dataset and evaluated its performance in a simplified setup.
 
+Our work builds on the DesnowNet framework, focusing on understanding its ability to generalize under constraints. This includes analyzing the architecture’s modular components, adapting it for more efficient computation, and measuring performance on this reduced dataset. We also reflect on the challenges of balancing computational limits with maintaining model effectiveness. The rest of this paper is structured as follows:
+- **Section II**: Background and Related Work
+- **Section III**: Overview of the DesnowNet architecture.
+- **Section IV**: Details of the dataset and scaling adaptations.
+- **Section V**: Experimental results and observations.
+- **Section VI**: Conclusions and reflections on the project.
+
+## 2. Background and Related Work
+
+### Understanding Image Restoration
+Image restoration is a fundamental task in computer vision that aims to recover high-quality images from degraded inputs. Degradation can occur due to various factors, including noise, motion blur, glare, or occlusions. This process is crucial for applications where clear and accurate visuals are required, and it often serves as a pre-processing step for downstream tasks like image classification, object detection, or scene understanding.
+
+In traditional machine learning pipelines, image restoration tasks are handled by minimizing a loss function that quantifies the difference between the restored image and the ground truth. Modern methods leverage deep learning models to capture complex patterns of degradation and restoration, achieving state-of-the-art results across various tasks.
+
+### Importance of Image Restoration
+Image restoration is not just a theoretical exercise but has significant practical implications. The quality of restored images directly impacts the performance of subsequent tasks in various applications, such as:
+- **Autonomous Vehicles**: Ensuring robust navigation and obstacle detection under challenging weather or lighting conditions.
+- **Security and Surveillance**: Enhancing the clarity of surveillance footage for better monitoring and incident analysis.
+- **Photography and Media**: Providing tools for professional and consumer-grade image enhancement.
+- **Scientific and Medical Imaging**: Enabling accurate analysis of degraded images in fields like astronomy, radiology, and microscopy.
+
+Restoring degraded images ensures that critical information is preserved and can be reliably analyzed, regardless of the domain.
+
+### Techniques in Image Restoration
+Several specialized tasks fall under the umbrella of image restoration, each requiring unique methods and architectures:
+- **Denoising**: Removing random noise introduced during image capture, such as sensor noise in low-light conditions.
+- **Deblurring**: Correcting blur caused by motion, focus errors, or camera shake.
+- **Occlusion Removal**: Addressing obstructions, such as rain streaks, snow, or dirt, that obscure parts of the image.
+- **Super-Resolution**: Enhancing image resolution to reveal finer details, often beyond the original capture quality.
+
+Traditional approaches to these problems often relied on hand-crafted features and assumptions about the degradation model (e.g., Gaussian noise for denoising). However, deep learning has revolutionized the field by enabling models to learn directly from data, resulting in more flexible and powerful solutions.
+
+### Image Restoration as a Step in the Vision Pipeline
+Image restoration plays a pivotal role in the broader vision pipeline. It acts as the bridge between raw image capture and high-level computer vision tasks such as:
+- **Image Classification**: Assigning labels to objects or scenes in an image.
+- **Object Detection**: Identifying and localizing objects within an image.
+- **Semantic Segmentation**: Understanding the pixel-wise classification of scenes.
+
+For instance, degraded images can severely impact the accuracy of classification models, making restoration a critical pre-processing step. This pipeline—moving from image capture to restoration and then analysis—ensures robustness in practical systems like autonomous vehicles and security networks.
+
+### Deep Learning and Specialized Models
+With the rise of deep learning, image restoration has evolved from task-specific models to modular architectures that can tackle multiple types of degradation. For example, models like convolutional neural networks (CNNs) and attention-based mechanisms have been adapted to handle specific challenges like translucency recovery and residual generation, as seen in architectures such as DesnowNet.
+
+Despite their success, these models often face challenges in generalization and scalability, particularly when deployed in resource-constrained environments or with limited training data. Recent efforts in the field have focused on creating lightweight, adaptable architectures capable of maintaining performance under such constraints.
+
+By combining these advancements with task-specific knowledge, modern image restoration methods continue to push the boundaries of what is possible, enabling more robust and versatile vision systems.
 ## 2. Proposed Method
 The general mathematical equation is as follows:
 
